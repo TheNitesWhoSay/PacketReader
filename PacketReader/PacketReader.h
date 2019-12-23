@@ -1,14 +1,16 @@
-/** To compile and run this code some additional setup may be required, the instructions that follow
+/**
+    To compile and run this code some additional setup may be required, the instructions that follow
     are for windows devices/vs2015, and may not apply to your target machines/development enviornment
-    - Download and install WinPcap on devices that will run this program https://www.winpcap.org/install/
-    - Download the WinPcap developer resources https://www.winpcap.org/devel.htm
-    - Add …\WpdPack\Include (from the WinPCap developer resources download) to your project's additional include directories
-    - Add …\WpdPack\Lib (from the WinPCap developer resources download) to your project's additional library directories
+    - Download and install Npcap on devices that will run this program https://nmap.org/download.html
+    - Add an npcap folder containing the Npcap SDK to your project https://nmap.org/npcap/
+    - Add ..\npcap\Include to your project's additional include directories
+    - Add ..\npcap\Lib to your project's additional library directories
     - Include libraries: wpcap.lib;Packet.lib;Ws2_32.lib;
-    - Add pre-processor definitions: NOMINMAX;_XKEYCHECK_H;WIN32;WPCAP;HAVE_REMOTE; */
+    - Add pre-processor definitions: NOMINMAX;_XKEYCHECK_H;WPCAP;HAVE_REMOTE;_MBCS;
+*/
 #ifndef PACKETREADER_H
 #define PACKETREADER_H
-#include "pcap.h"
+#include <pcap.h>
 #include <cstdint>
 #include <string>
 #include <vector>

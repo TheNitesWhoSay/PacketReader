@@ -1,4 +1,6 @@
 #include "PacketReader.h"
+#include <ostream>
+#include <iostream>
 
 std::vector<AdapterData> GetAdapterList()
 {

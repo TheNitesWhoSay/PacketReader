@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include <time.h>
 
 bool SelectAdapter(bool selectOnlyPublic, std::istream &is, std::ostream &os, AdapterData &selectedAdapter);
 void ReadPackets(pcap_t* adapterHandle);
@@ -12,7 +13,7 @@ const char* timeToString(timeval &timeValue);
 int main()
 {
     AdapterData selectedAdapter;
-    char filter[] = "udp portrange 6112-6119 or tcp portrange 6112-6119";
+    char filter[] = "udp portrange 4444-4445 or tcp portrange 4444-4445";
     bpf_program fcode = {};
     pcap_t* adapterHandle = nullptr;
 
@@ -37,7 +38,7 @@ int main()
             FreeAdapter(adapterHandle);
         }
     }
-    
+
     std::cin.sync();
     std::cin.get();
     return 0;
@@ -85,7 +86,7 @@ bool SelectAdapter(bool selectOnlyPublic, std::istream &is, std::ostream &os, Ad
     {
         std::string padding = (adapterNum < 10 ? "    " : "     ");
         os << adapterNum << " - " << (adapter.description.size() > 0 ? adapter.description :
-                (adapter.name.size() > 0 ? adapter.name : "(No Description)")) << std::endl;
+            (adapter.name.size() > 0 ? adapter.name : "(No Description)")) << std::endl;
 
         for ( AdapterAddress &address : adapter.addresses )
         {
@@ -129,7 +130,7 @@ void ReadPackets(pcap_t* adapterHandle)
         if ( header->len > EthernetHeaderSize )
         {
             if ( ((pkt_data[EthernetHeaderSize] & 0xF0) >> 4) == 4 &&
-                 header->len >= EthernetHeaderSize + MinimumIpv4HeaderSize )
+                header->len >= EthernetHeaderSize + MinimumIpv4HeaderSize )
             {
                 IPv4PacketHeader* ipHeader = (IPv4PacketHeader*)(&pkt_data[EthernetHeaderSize]);
                 u16 ipHeaderLength = 4 * ((u16)(ipHeader->Version_IHL & 0x0F));
